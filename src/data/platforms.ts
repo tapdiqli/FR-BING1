@@ -119,7 +119,7 @@ export const platforms: Platform[] = [
       "Outils d'auto-limitation faciles à trouver",
     ],
     watchouts: ["Esthétique un peu austère"],
-    partnerUrl: "https://www.betclic.fr/?gclid=",
+    partnerUrl: "https://www.betclic.fr/",
   },
 ];
 
