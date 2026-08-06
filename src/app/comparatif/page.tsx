@@ -5,13 +5,14 @@ import { PageHero } from "@/components/site/PageHero";
 import { PlatformCard } from "@/components/site/PlatformCard";
 import { Icon } from "@/components/ui/Icon";
 import { criteria } from "@/data/content";
-import { platforms } from "@/data/platforms";
+import { platformNames, platforms } from "@/data/platforms";
 import { site } from "@/data/site";
+
+const namesSentence = platformNames.join(", ");
 
 export const metadata: Metadata = {
   title: "Comparatif des plateformes",
-  description:
-    "Le classement complet établi par AvisdesParis : cinq plateformes analysées une par une, avec leurs points forts, leurs limites et la note attribuée.",
+  description: `Le classement complet établi par AvisdesParis : ${namesSentence}, analysés un par un avec leurs points forts, leurs limites et la note attribuée.`,
   alternates: { canonical: "/comparatif" },
 };
 
@@ -20,12 +21,15 @@ export default function ComparatifPage() {
     <>
       <PageHero
         eyebrow="Classement complet"
-        title="Toutes les plateformes que nous avons passées au crible"
-        description={`${site.name} détaille ici chaque acteur retenu : ce qu'il fait bien, ce qu'il pourrait améliorer et la note que lui vaut notre grille de lecture.`}
+        title={`Comparatif ${namesSentence}`}
+        description={`${site.name} détaille ici chaque opérateur agréé retenu : ce qu'il fait bien, ce qu'il pourrait améliorer et la note que lui vaut notre grille de lecture.`}
       />
 
       <section className="bg-mist-100 py-14 sm:py-16">
         <div className="container-page">
+          <h2 className="mb-5 font-display text-xl font-extrabold text-ink-900 sm:text-2xl">
+            Les {platforms.length} plateformes comparées : {namesSentence}
+          </h2>
           <div className="space-y-4">
             {platforms.map((platform) => (
               <PlatformCard key={platform.id} platform={platform} />

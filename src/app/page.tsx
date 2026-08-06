@@ -5,7 +5,10 @@ import { PlatformCard } from "@/components/site/PlatformCard";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { criteria, heroChips, homeFaq, pillars, stats } from "@/data/content";
-import { topPlatforms } from "@/data/platforms";
+import { platformNames, topPlatforms } from "@/data/platforms";
+
+const allNames = platformNames.join(", ");
+const podiumNames = topPlatforms.map((platform) => platform.name).join(", ");
 
 export default function HomePage() {
   return (
@@ -23,8 +26,8 @@ export default function HomePage() {
             Les meilleures plateformes accessibles en France
           </h1>
           <p className="mx-auto mt-2.5 max-w-xl text-sm leading-relaxed text-plum-100/75">
-            Classement clair fondé sur la solidité, le confort d&apos;usage et
-            l&apos;étendue des services.
+            Classement clair de {allNames}, fondé sur la solidité, le confort
+            d&apos;usage et l&apos;étendue des services.
           </p>
 
           <ul className="no-scrollbar -mx-5 mt-4 flex w-[calc(100%+2.5rem)] gap-2 overflow-x-auto px-5 pb-1 sm:mx-auto sm:w-full sm:max-w-3xl sm:flex-wrap sm:items-center sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0">
@@ -47,8 +50,11 @@ export default function HomePage() {
         className="bg-mist-100 py-8 sm:py-10"
       >
         <div className="container-page">
-          <h2 id="classement-titre" className="sr-only">
-            Podium des plateformes analysées
+          <h2
+            id="classement-titre"
+            className="mb-5 font-display text-xl font-extrabold text-ink-900 sm:text-2xl"
+          >
+            Notre podium : {podiumNames}
           </h2>
           <div className="space-y-4">
             {topPlatforms.map((platform) => (

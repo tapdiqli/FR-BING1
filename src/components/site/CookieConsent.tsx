@@ -2,13 +2,20 @@
 
 import Link from "next/link";
 
-import { UNSET, useStoredChoice } from "@/lib/useStoredChoice";
-
-const STORAGE_KEY = "adp-cookie-choice";
+import {
+  AGE_GATE_KEY,
+  COOKIE_CHOICE_KEY,
+  UNSET,
+  useStoredChoice,
+} from "@/lib/useStoredChoice";
 
 export function CookieConsent() {
-  const [choice, decide] = useStoredChoice(STORAGE_KEY);
+  const [choice, decide] = useStoredChoice(COOKIE_CHOICE_KEY);
+  const [ageChoice] = useStoredChoice(AGE_GATE_KEY);
 
+  // The age gate sits at z-[100] and covers this banner, so hold it back until
+  // the visitor has passed the gate and can actually reach these buttons.
+  if (ageChoice !== "yes") return null;
   if (choice !== UNSET) return null;
 
   return (

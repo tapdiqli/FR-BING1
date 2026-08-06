@@ -27,12 +27,15 @@ export function PlatformCard({ platform }: PlatformCardProps) {
           <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-ink-900 font-display text-xs font-bold text-white">
             {platform.rank}
           </span>
-          <div className="flex min-w-0 flex-1 justify-center">
+          <div className="flex min-w-0 flex-1 items-center gap-2">
             <PlatformLogo
               initial={platform.initial}
               rank={platform.rank}
               compact
             />
+            <h3 className="min-w-0 truncate font-display text-base font-extrabold leading-tight text-ink-900">
+              {platform.name}
+            </h3>
           </div>
           <div className="w-14 shrink-0 text-right">
             <p className="font-display text-xl font-extrabold leading-none text-ink-900">
@@ -42,13 +45,15 @@ export function PlatformCard({ platform }: PlatformCardProps) {
           </div>
         </div>
 
-        <h3 className="sr-only">{platform.name}</h3>
-        <p className="mt-3 text-[13px] font-medium leading-snug text-ink-800">
+        <span className="mt-2.5 inline-block rounded-full bg-gold-300/25 px-2.5 py-0.5 text-[10px] font-bold text-gold-600">
+          {platform.badge}
+        </span>
+        <p className="mt-2 text-[13px] font-medium leading-snug text-ink-800">
           {platform.summary}
         </p>
 
         <span className="mt-3.5 flex w-full items-center justify-center rounded-full bg-gradient-to-r from-plum-500 to-plum-700 px-4 py-2.5 text-sm font-bold text-white">
-          Accéder à la page
+          Accéder à {platform.name}
         </span>
       </div>
 
@@ -66,9 +71,14 @@ export function PlatformCard({ platform }: PlatformCardProps) {
         </div>
 
         <div className="lg:col-span-6">
-          <span className="inline-block rounded-full bg-gold-300/25 px-2.5 py-0.5 text-[10px] font-bold text-gold-600">
-            {platform.badge}
-          </span>
+          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+            <h3 className="font-display text-lg font-extrabold leading-tight text-ink-900">
+              {platform.name}
+            </h3>
+            <span className="inline-block rounded-full bg-gold-300/25 px-2.5 py-0.5 text-[10px] font-bold text-gold-600">
+              {platform.badge}
+            </span>
+          </div>
           <p className="mt-1.5 text-sm font-semibold leading-relaxed text-ink-900">
             {platform.summary}
           </p>
@@ -93,7 +103,7 @@ export function PlatformCard({ platform }: PlatformCardProps) {
             <StarRating value={platform.stars} className="mt-1 justify-end" />
           </div>
           <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-gradient-to-r from-plum-500 to-plum-700 px-5 py-2.5 text-sm font-bold text-white shadow-glow transition-transform duration-200 group-hover:-translate-y-0.5">
-            Accéder à la page
+            Accéder à {platform.name}
           </span>
         </div>
       </div>

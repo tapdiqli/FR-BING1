@@ -7,6 +7,14 @@ export const UNKNOWN = "unknown";
 /** No choice has been recorded yet. */
 export const UNSET = "unset";
 
+export const AGE_GATE_KEY = "adp-age-confirmed";
+export const COOKIE_CHOICE_KEY = "adp-cookie-choice";
+
+/** True once the visitor has accepted measurement and advertising cookies. */
+export function hasMarketingConsent(choice: string) {
+  return choice === "all";
+}
+
 const listeners = new Set<() => void>();
 /** Mirrors the recorded choice so the UI still updates when storage is blocked. */
 const memory = new Map<string, string>();

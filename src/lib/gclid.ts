@@ -19,10 +19,18 @@ export function pickClickId(
   return "";
 }
 
-/** Append the click id value to the partner URL as-is. */
+/** Append the click id to the partner URL as a `gclid` query parameter. */
 export function appendClickId(partnerUrl: string, gclid: string): string {
   if (!gclid) return partnerUrl;
-  return `${partnerUrl}${gclid}`;
+
+  try {
+    const url = new URL(partnerUrl);
+    url.searchParams.set("gclid", gclid);
+    return url.toString();
+  } catch {
+    const separator = partnerUrl.includes("?") ? "&" : "?";
+    return `${partnerUrl}${separator}gclid=${encodeURIComponent(gclid)}`;
+  }
 }
 
 export function getCookie(name: string): string {
@@ -52,6 +60,14 @@ export function persistGclid(value: string): void {
   if (!value || typeof document === "undefined") return;
   setCookie(GCLID_COOKIE, value);
   document.body.setAttribute("data-gclid", value);
+  listeners.forEach((listener) => listener());
+}
+
+/** Drops a previously stored click id, used when measurement consent is refused. */
+export function clearGclid(): void {
+  if (typeof document === "undefined") return;
+  document.cookie = `${GCLID_COOKIE}=; path=/; max-age=0; SameSite=Lax`;
+  document.body.removeAttribute("data-gclid");
   listeners.forEach((listener) => listener());
 }
 

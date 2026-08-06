@@ -43,30 +43,31 @@ const signals = [
   "Vous peinez à faire une pause, même pour quelques jours.",
 ];
 
+/** Ressources françaises uniquement : le site s'adresse au seul marché français. */
 const resources = [
   {
-    name: "Service d'information",
+    name: "Joueurs Info Service",
     description:
       "Écoute confidentielle et gratuite, sept jours sur sept, pour les personnes concernées comme pour leurs proches.",
     href: "https://www.joueurs-info-service.fr/",
   },
   {
-    name: "Autorité de régulation",
+    name: "Autorité nationale des jeux (ANJ)",
     description:
       "Le cadre légal français, la liste des plateformes autorisées et les démarches d'accompagnement volontaire.",
     href: "https://anj.fr/",
   },
   {
-    name: "Organisation d'accompagnement",
+    name: "Auto-évaluation EvalluJeu",
     description:
-      "Organisme indépendant proposant information, prévention et orientation vers un accompagnement adapté.",
-    href: "https://www.begambleaware.org/",
+      "Questionnaire anonyme et gratuit pour situer votre pratique et savoir si un accompagnement serait utile.",
+    href: "https://www.evalujeu.fr/",
   },
   {
-    name: "Structure d'écoute",
+    name: "Médiateur des jeux en ligne",
     description:
-      "Structure spécialisée dans le soutien des personnes confrontées à un usage devenu problématique.",
-    href: "https://gordonmoody.org.uk/",
+      "Médiation indépendante et gratuite en cas de litige non résolu avec un opérateur agréé en France.",
+    href: "https://mediateurdesjeuxenligne.fr/",
   },
 ];
 

@@ -1,7 +1,9 @@
+import type { ReactNode } from "react";
+
 export type LegalSection = {
   heading: string;
-  paragraphs?: string[];
-  bullets?: string[];
+  paragraphs?: ReactNode[];
+  bullets?: ReactNode[];
 };
 
 type LegalContentProps = {
@@ -48,9 +50,9 @@ export function LegalContent({ updatedAt, sections }: LegalContentProps) {
               <h2 className="font-display text-lg font-bold text-ink-900">
                 {section.heading}
               </h2>
-              {section.paragraphs?.map((paragraph) => (
+              {section.paragraphs?.map((paragraph, paragraphIndex) => (
                 <p
-                  key={paragraph}
+                  key={paragraphIndex}
                   className="mt-3 text-sm leading-relaxed text-ink-700/80"
                 >
                   {paragraph}
@@ -58,9 +60,9 @@ export function LegalContent({ updatedAt, sections }: LegalContentProps) {
               ))}
               {section.bullets ? (
                 <ul className="mt-3 space-y-2">
-                  {section.bullets.map((bullet) => (
+                  {section.bullets.map((bullet, bulletIndex) => (
                     <li
-                      key={bullet}
+                      key={bulletIndex}
                       className="flex gap-2.5 text-sm leading-relaxed text-ink-700/80"
                     >
                       <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-plum-400" />

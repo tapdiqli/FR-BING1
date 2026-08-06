@@ -3,12 +3,10 @@
 import { useEffect, useState } from "react";
 
 import { site } from "@/data/site";
-import { UNSET, useStoredChoice } from "@/lib/useStoredChoice";
-
-const STORAGE_KEY = "adp-age-confirmed";
+import { AGE_GATE_KEY, UNSET, useStoredChoice } from "@/lib/useStoredChoice";
 
 export function AgeGate() {
-  const [choice, setChoice] = useStoredChoice(STORAGE_KEY);
+  const [choice, setChoice] = useStoredChoice(AGE_GATE_KEY);
   const [refused, setRefused] = useState(false);
   const visible = choice === UNSET;
 
@@ -26,9 +24,9 @@ export function AgeGate() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="age-gate-title"
-      className="fixed inset-0 z-[100] grid place-items-center bg-ink-950/85 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-ink-950/85 p-4 backdrop-blur-sm sm:items-center"
     >
-      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-ink-900 p-7 text-center shadow-2xl">
+      <div className="my-auto w-full max-w-md rounded-2xl border border-white/10 bg-ink-900 p-7 text-center shadow-2xl">
         <span className="inline-grid h-14 w-14 place-items-center rounded-full border-2 border-gold-400 font-display text-lg font-extrabold text-gold-400">
           18+
         </span>
