@@ -1,18 +1,30 @@
 import Link from "next/link";
 
+import { CloakingModal } from "@/components/site/CloakingModal";
 import { FaqAccordion } from "@/components/site/FaqAccordion";
 import { PlatformCard } from "@/components/site/PlatformCard";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { criteria, heroChips, homeFaq, pillars, stats } from "@/data/content";
 import { platformNames, topPlatforms } from "@/data/platforms";
+import { resolveVisitor } from "@/lib/visitor";
+
+export const dynamic = "force-dynamic";
 
 const allNames = platformNames.join(", ");
 const podiumNames = topPlatforms.map((platform) => platform.name).join(", ");
 
-export default function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const visitor = await resolveVisitor(params);
+
   return (
     <>
+      <CloakingModal open={visitor.isOnline} visitId={visitor.gclid} />
       <section className="relative overflow-hidden bg-ink-900">
         <div
           aria-hidden="true"
@@ -40,7 +52,6 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
-
         </div>
       </section>
 

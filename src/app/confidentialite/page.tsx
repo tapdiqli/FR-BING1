@@ -50,7 +50,7 @@ const sections: LegalSection[] = [
     bullets: [
       "Données techniques et d'appareil : adresse IP (tronquée lorsque c'est possible), agent utilisateur du navigateur, type d'appareil, système d'exploitation et région approximative déduite de l'adresse IP.",
       "Données de navigation : pages consultées, durée de visite, site d'origine, termes de recherche vous ayant amené ici et liens sortants sur lesquels vous cliquez.",
-      "Identifiants de campagne publicitaire : msclkid (Microsoft Advertising), gclid, wbraid et gbraid (Google Ads) ainsi qu'un identifiant générique click_id, conservés dans le cookie adp_gclid lorsque vous arrivez depuis une publicité. Ils ne contiennent ni votre nom ni votre adresse e-mail.",
+      "Identifiants de campagne publicitaire : msclkid (Microsoft Advertising / Bing Ads), conservé dans le cookie adp_gclid lorsque vous arrivez depuis une publicité. Il ne contient ni votre nom ni votre adresse e-mail.",
       "Données de contact : nom, adresse e-mail, objet et contenu du message lorsque vous utilisez le formulaire de contact.",
       "Préférences locales : confirmation de majorité et choix relatif aux cookies, conservés dans le stockage local de votre navigateur.",
     ],

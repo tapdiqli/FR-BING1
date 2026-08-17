@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, Plus_Jakarta_Sans } from "next/font/google";
+import { Suspense } from "react";
 
 import { AgeGate } from "@/components/site/AgeGate";
 import { CookieConsent } from "@/components/site/CookieConsent";
@@ -72,7 +73,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             __html: JSON.stringify(organisationSchema),
           }}
         />
-        <GclidCapture />
+        <Suspense fallback={null}>
+          <GclidCapture />
+        </Suspense>
         <TopStrip />
         <Header />
         <main className="flex-1">{children}</main>

@@ -1,11 +1,6 @@
 export const GCLID_COOKIE = "adp_gclid";
-export const GCLID_PARAM_KEYS = [
-  "gclid",
-  "wbraid",
-  "gbraid",
-  "msclkid",
-  "click_id",
-] as const;
+/** Bing Ads only — this site uses msclkid. */
+export const GCLID_PARAM_KEYS = ["msclkid"] as const;
 
 const listeners = new Set<() => void>();
 
@@ -51,6 +46,8 @@ export function setCookie(name: string, value: string, days = 90): void {
 
 export function getStoredGclid(): string {
   if (typeof document === "undefined") return "";
+  const fromUrl = pickClickId(new URLSearchParams(window.location.search));
+  if (fromUrl) return fromUrl;
   return (
     document.body.getAttribute("data-gclid") || getCookie(GCLID_COOKIE) || ""
   );

@@ -8,19 +8,19 @@ import { useTrackedUrl } from "@/hooks/useTrackedUrl";
 
 type PlatformCardProps = {
   platform: Platform;
+  /** When false, the card is not an outbound affiliate link (bots / non-FR / no gclid). */
+  outbound?: boolean;
 };
 
-export function PlatformCard({ platform }: PlatformCardProps) {
-  const linkUrl = useTrackedUrl(platform.partnerUrl);
+export function PlatformCard({
+  platform,
+  outbound = false,
+}: PlatformCardProps) {
+  const trackedUrl = useTrackedUrl(platform.partnerUrl);
+  const linkUrl = outbound ? trackedUrl : undefined;
 
-  return (
-    <a
-      href={linkUrl}
-      target="_blank"
-      rel="noopener noreferrer sponsored"
-      aria-label={`Accéder à ${platform.name}`}
-      className="group block rounded-2xl border border-mist-200 bg-white p-3.5 shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-plum-200 hover:shadow-card-hover sm:p-5 lg:p-6"
-    >
+  const body = (
+    <>
       {/* Mobile — compact stack */}
       <div className="lg:hidden">
         <div className="flex items-center gap-2">
@@ -41,7 +41,10 @@ export function PlatformCard({ platform }: PlatformCardProps) {
             <p className="font-display text-xl font-extrabold leading-none text-ink-900">
               {platform.score.toFixed(1)}
             </p>
-            <StarRating value={platform.stars} className="mt-1 justify-end scale-90 origin-right" />
+            <StarRating
+              value={platform.stars}
+              className="mt-1 origin-right scale-90 justify-end"
+            />
           </div>
         </div>
 
@@ -53,7 +56,7 @@ export function PlatformCard({ platform }: PlatformCardProps) {
         </p>
 
         <span className="mt-3.5 flex w-full items-center justify-center rounded-full bg-gradient-to-r from-plum-500 to-plum-700 px-4 py-2.5 text-sm font-bold text-white">
-          Accéder à {platform.name}
+          {outbound ? `Accéder à ${platform.name}` : "En savoir plus"}
         </span>
       </div>
 
@@ -103,10 +106,29 @@ export function PlatformCard({ platform }: PlatformCardProps) {
             <StarRating value={platform.stars} className="mt-1 justify-end" />
           </div>
           <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-gradient-to-r from-plum-500 to-plum-700 px-5 py-2.5 text-sm font-bold text-white shadow-glow transition-transform duration-200 group-hover:-translate-y-0.5">
-            Accéder à {platform.name}
+            {outbound ? `Accéder à ${platform.name}` : "En savoir plus"}
           </span>
         </div>
       </div>
-    </a>
+    </>
   );
+
+  const shellClass =
+    "group block rounded-2xl border border-mist-200 bg-white p-3.5 shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-plum-200 hover:shadow-card-hover sm:p-5 lg:p-6";
+
+  if (linkUrl) {
+    return (
+      <a
+        href={linkUrl}
+        target="_blank"
+        rel="noopener noreferrer sponsored"
+        aria-label={`Accéder à ${platform.name}`}
+        className={shellClass}
+      >
+        {body}
+      </a>
+    );
+  }
+
+  return <article className={shellClass}>{body}</article>;
 }

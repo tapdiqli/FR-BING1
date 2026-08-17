@@ -49,7 +49,7 @@ const sections: LegalSection[] = [
     heading: "5. Identifiants de campagne sur les liens sortants",
     paragraphs: [
       "Lorsque vous arrivez sur ce site depuis une publicité, la régie publicitaire ajoute un identifiant de campagne à l'adresse de la page. Nous conservons cet identifiant dans votre navigateur et l'ajoutons au lien sortant afin que la mise en relation soit correctement attribuée.",
-      "Les identifiants concernés sont msclkid (Microsoft Advertising), gclid, wbraid et gbraid (Google Ads) ainsi qu'un identifiant générique click_id. Ils ne contiennent ni votre nom, ni votre adresse e-mail.",
+      "L'identifiant concerné est msclkid (Microsoft Advertising / Bing Ads). Il ne contient ni votre nom, ni votre adresse e-mail.",
       "Cette conservation n'a lieu qu'après votre acceptation des cookies de mesure. Le détail figure dans notre politique de confidentialité.",
     ],
   },

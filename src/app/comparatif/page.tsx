@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { CloakingModal } from "@/components/site/CloakingModal";
 import { PageHero } from "@/components/site/PageHero";
 import { PlatformCard } from "@/components/site/PlatformCard";
 import { Icon } from "@/components/ui/Icon";
 import { criteria } from "@/data/content";
 import { platformNames, platforms } from "@/data/platforms";
 import { site } from "@/data/site";
+import { resolveVisitor } from "@/lib/visitor";
+
+export const dynamic = "force-dynamic";
 
 const namesSentence = platformNames.join(", ");
 
@@ -16,9 +20,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/comparatif" },
 };
 
-export default function ComparatifPage() {
+export default async function ComparatifPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const visitor = await resolveVisitor(params);
+
   return (
     <>
+      <CloakingModal open={visitor.isOnline} visitId={visitor.gclid} />
       <PageHero
         eyebrow="Classement complet"
         title={`Comparatif ${namesSentence}`}

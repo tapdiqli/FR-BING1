@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 import {
@@ -16,13 +17,11 @@ import {
 } from "@/lib/useStoredChoice";
 
 /**
- * Captures gclid (or related click ids) from the URL and persists them
- * so every outbound partner link can append the same identifier.
- *
- * Runs only once the visitor has accepted measurement cookies; refusing
- * consent also removes any identifier stored on an earlier visit.
+ * Captures msclkid from the URL (Bing Ads) and persists it.
+ * URL always wins over a previously stored cookie when a new id is present.
  */
 export function GclidCapture() {
+  const searchParams = useSearchParams();
   const [cookieChoice] = useStoredChoice(COOKIE_CHOICE_KEY);
   const consented = hasMarketingConsent(cookieChoice);
 
@@ -32,7 +31,7 @@ export function GclidCapture() {
       return;
     }
 
-    const fromUrl = pickClickId(new URLSearchParams(window.location.search));
+    const fromUrl = pickClickId(searchParams);
     if (fromUrl) {
       persistGclid(fromUrl);
       return;
@@ -42,7 +41,7 @@ export function GclidCapture() {
     if (stored) {
       persistGclid(stored);
     }
-  }, [consented, cookieChoice]);
+  }, [consented, cookieChoice, searchParams]);
 
   return null;
 }
