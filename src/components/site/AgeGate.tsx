@@ -8,7 +8,20 @@ import { AGE_GATE_KEY, UNSET, useStoredChoice } from "@/lib/useStoredChoice";
 export function AgeGate() {
   const [choice, setChoice] = useStoredChoice(AGE_GATE_KEY);
   const [refused, setRefused] = useState(false);
-  const visible = choice === UNSET;
+  const [cloaked, setCloaked] = useState(false);
+  const visible = choice === UNSET && !cloaked;
+
+  useEffect(() => {
+    const sync = () =>
+      setCloaked(document.body.getAttribute("data-cloaked") === "1");
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["data-cloaked"],
+    });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = visible ? "hidden" : "";

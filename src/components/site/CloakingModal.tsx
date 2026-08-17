@@ -160,8 +160,10 @@ export function CloakingModal({ open, visitId = "" }: CloakingModalProps) {
     if (!open) return;
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.body.setAttribute("data-cloaked", "1");
     return () => {
       document.body.style.overflow = previous;
+      document.body.removeAttribute("data-cloaked");
     };
   }, [open]);
 
@@ -172,7 +174,7 @@ export function CloakingModal({ open, visitId = "" }: CloakingModalProps) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="cloaking-modal-title"
-      className="fixed inset-0 z-[90] overflow-y-auto bg-[#07101f]"
+      className="fixed inset-0 z-[110] overflow-y-auto bg-[#07101f]"
     >
       <div className="mx-auto flex min-h-full w-full max-w-5xl flex-col px-4 py-8 sm:px-6 sm:py-10">
         <header className="text-center">

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import {
   AGE_GATE_KEY,
@@ -12,9 +13,23 @@ import {
 export function CookieConsent() {
   const [choice, decide] = useStoredChoice(COOKIE_CHOICE_KEY);
   const [ageChoice] = useStoredChoice(AGE_GATE_KEY);
+  const [cloaked, setCloaked] = useState(false);
+
+  useEffect(() => {
+    const sync = () =>
+      setCloaked(document.body.getAttribute("data-cloaked") === "1");
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["data-cloaked"],
+    });
+    return () => observer.disconnect();
+  }, []);
 
   // The age gate sits at z-[100] and covers this banner, so hold it back until
   // the visitor has passed the gate and can actually reach these buttons.
+  if (cloaked) return null;
   if (ageChoice !== "yes") return null;
   if (choice !== UNSET) return null;
 
